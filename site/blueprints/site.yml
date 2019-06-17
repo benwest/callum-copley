@@ -1,0 +1,24 @@
+title: Site
+
+files: false
+
+fields:
+  title:
+    label: Title
+    type:  text
+
+  lastName:
+    label: Last Name
+    type:  text
+
+  firstName:
+    label: First Name
+    type:  text
+    
+  byline:
+    label: Byline
+    type:  textarea
+    
+  email:
+    label: Email
+    type:  email

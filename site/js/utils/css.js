@@ -1,0 +1,1 @@
+module.exports = obj => Object.entries( obj ).map( e => e.join(': ') ).join('; ');

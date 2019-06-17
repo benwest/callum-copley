@@ -1,0 +1,26 @@
+title: Project
+
+pages: false
+
+files: true
+  fields:
+    pages:
+      type: hidden
+
+fields:
+
+  title:
+    label: Title
+    type:  text
+    
+  format:
+    label: Format
+    type:  text
+    
+  year:
+    label: Year
+    type:  text
+    
+  description:
+    label: Description
+    type:  textarea
