@@ -1,13 +1,36 @@
 <?php
 
-if(!defined('KIRBY')) define('KIRBY', true);
-if(!defined('DS'))    define('DS', DIRECTORY_SEPARATOR);
+/**
+ * Validate the PHP version to already
+ * stop at older or too recent versions
+ */
+if (
+	version_compare(PHP_VERSION, '8.1.0', '>=') === false ||
+	version_compare(PHP_VERSION, '8.4.0', '<')  === false
+) {
+	die(include __DIR__ . '/views/php.php');
+}
 
-// load all dependencies
-include(__DIR__ . DS . 'vendor' . DS . 'autoload.php');
-
-// load all core classes
-load(include(__DIR__ . DS . 'classmap.php'));
-
-// load all helper functions
-include(__DIR__ . DS . 'helpers.php');
+if (is_file($autoloader = dirname(__DIR__) . '/vendor/autoload.php')) {
+	/**
+	 * Always prefer a site-wide Composer autoloader
+	 * if it exists, it means that the user has probably
+	 * installed additional packages
+	 *
+	 * @psalm-suppress MissingFile
+	 */
+	include $autoloader;
+} elseif (is_file($autoloader = __DIR__ . '/vendor/autoload.php')) {
+	/**
+	 * Fall back to the local autoloader if that exists
+	 *
+	 * @psalm-suppress MissingFile
+	 */
+	include $autoloader;
+} else {
+	/**
+	 * If neither one exists, don't bother searching;
+	 * it's a custom directory setup and the users need to
+	 * load the autoloader themselves
+	 */
+}

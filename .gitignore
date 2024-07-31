@@ -7,28 +7,51 @@ Icon
 # Temporary files
 # ---------------
 
-/thumbs/*
-!/thumbs/index.html
+/media/*
+!/media/index.html
 
-/site/cache/*
-!/site/cache/index.html
+# Lock files
+# ---------------
+
+.lock
+
+# Editors
+# (sensitive workspace files)
+# ---------------------------
+*.sublime-workspace
+/.vscode
+/.idea
 
 # -------------SECURITY-------------
 # NEVER publish these files via Git!
 # -------------SECURITY-------------
 
-# Kirby accounts
+# Cache Files
+# ---------------
+
+/site/cache/*
+!/site/cache/index.html
+
+# Accounts
 # ---------------
 
 /site/accounts/*
 !/site/accounts/index.html
 
-# Avatars
+# Sessions
 # ---------------
 
-/assets/avatars/*
-!/assets/avatars/index.html
+/site/sessions/*
+!/site/sessions/index.html
+
+# License
+# ---------------
+
+/site/config/.license
+/site/config/config.starterkit.test.php
 
 
-node_modules
-content
+# Queue plugin
+/site/queues/*
+
+/content/*

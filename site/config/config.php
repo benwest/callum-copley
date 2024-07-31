@@ -1,40 +1,31 @@
 <?php
 
-/*
-
----------------------------------------
-License Setup
----------------------------------------
-
-Please add your license key, which you've received
-via email after purchasing Kirby on http://getkirby.com/buy
-
-It is not permitted to run a public website without a
-valid license key. Please read the End User License Agreement
-for more information: http://getkirby.com/license
-
-*/
-
-c::set('license', 'put your license key here');
-
-/*
-
----------------------------------------
-Kirby Configuration
----------------------------------------
-
-By default you don't have to configure anything to
-make Kirby work. For more fine-grained configuration
-of the system, please check out http://getkirby.com/docs/advanced/options
-
-*/
-
-c::set('debug',true);
-// c::set('cache',true);
-
-c::set('routes', [
-    [
-        'pattern' => '(:any)',
-        'action' => function () { return page('home'); }
-    ]
-]);
+return [
+  "bvdputte.kirbyqueue.queues" => [
+    "pdf_to_images" => function ($job) {
+      $id = $job->get('id');
+      $file = kirby()->file($id);
+      $path = $file->root();
+      $dir = dirname($path);
+      $page_count = PDFToImage::getPageCount($path);
+      $pagesQueue = kqQueue('pdf_page_to_image');
+      foreach (range(0, $page_count - 1) as $i) {
+        $name = $file -> name();
+        $num = str_pad($i, 5, '0', STR_PAD_LEFT);
+        $outFile = $dir . DIRECTORY_SEPARATOR . "{$name}_{$num}.jpg";
+        $job = kqJob([
+          'inFile' => $path,
+          'page' => $i,
+          'outFile' => $outFile
+        ]);
+        $pagesQueue->addJob($job);
+      }
+    },
+    "pdf_page_to_image" => function ($job) {
+      $inFile = $job->get('inFile');
+      $page = $job->get('page');
+      $outFile = $job->get('outFile');
+      PDFToImage::pageToImage($inFile, $page, $outFile);
+    }
+  ]
+];

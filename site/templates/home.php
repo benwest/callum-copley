@@ -9,12 +9,12 @@
     'email' => (string) $site -> email()
   ];
   $projects = [];
-  foreach ( page('projects') -> children() -> visible() as $project ) {
+  foreach ( page('projects') -> children() -> listed() as $project ) {
     $pages = [];
-    foreach ( $project -> files() -> filterBy( 'extension', 'jpg' ) as $file ) {
+    foreach ( $project -> files() -> filterBy( 'type', 'image' ) as $file ) {
       $pages []= [
         'large' => $file -> url(),
-        'small' => thumb( $file, [ 'width' => $file -> width() / 8 ] ) -> url(),
+        'small' => $file -> thumb( $file, [ 'width' => $file -> width() / 8 ] ) -> url(),
         'size' => [ $file -> width(), $file -> height() ]
       ];
     }

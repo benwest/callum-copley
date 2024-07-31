@@ -1,24 +1,27 @@
 title: Site
-
-files: false
-
-fields:
-  title:
-    label: Title
-    type:  text
-
-  lastName:
-    label: Last Name
-    type:  text
-
-  firstName:
-    label: First Name
-    type:  text
-    
-  byline:
-    label: Byline
-    type:  textarea
-    
-  email:
-    label: Email
-    type:  email
+columns:
+  - width: 1/2
+    sections:
+      fields:
+        type: fields
+        fields:
+          lastName:
+            label: Last Name
+            type: text
+            width: 1/2
+          firstName:
+            label: First Name
+            type: text
+            width: 1/2
+          byline:
+            label: Byline
+            type: textarea
+          email:
+            label: Email
+            type: email
+  - width: 1/2
+    sections:
+      pages:
+        type: pages
+        headline: Projects
+        parent: site.find("projects")

@@ -1,0 +1,20 @@
+title: Project
+sections:
+  fields:
+    type: fields
+    fields:
+      format:
+        label: Format
+        type: text
+        width: 1/2
+      year:
+        label: Year
+        type: text
+        width: 1/2
+      description:
+        label: Description
+        type: textarea
+  files:
+    type: files
+    layout: cards
+    size: small
